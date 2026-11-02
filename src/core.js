@@ -114,7 +114,14 @@
     if (!hash) return [];
     const raw = String(hash).replace(/^#/, '');
     if (!raw) return [];
-    const parsed = JSON.parse(decodeURIComponent(raw));
+    let parsed;
+    try {
+      parsed = JSON.parse(decodeURIComponent(raw));
+    } catch (err) {
+      // 链接被聊天软件截断、或被人手工改坏都很常见。
+      // 这里必须降级成「没有选项」，而不是让整个页面白屏。
+      return [];
+    }
     if (!Array.isArray(parsed)) return [];
     return parseOptions(parsed);
   }
