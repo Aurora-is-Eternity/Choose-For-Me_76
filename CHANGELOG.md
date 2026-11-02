@@ -3,6 +3,12 @@
 本文件格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，
 版本号遵循[语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [Unreleased]
+
+### 修复
+
+- **选项超过 16 个时转盘标签粘连**：按扇区弧长与中文双宽动态截断标签（#3），不再固定截 5/7 个字符。
+
 ## [1.1.0] - 2026-11-02
 
 ### 新增

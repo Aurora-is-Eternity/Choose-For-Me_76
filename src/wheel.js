@@ -40,9 +40,64 @@
     ].join(' ');
   }
 
-  function truncate(text, max) {
+  /** CJK / 全角大约占两个拉丁列宽，用来估算标签是否塞得进扇区弧长 */
+  function charDisplayWidth(ch) {
+    const code = ch.codePointAt(0);
+    if (
+      (code >= 0x1100 && code <= 0x115f) ||
+      (code >= 0x2e80 && code <= 0xa4cf) ||
+      (code >= 0xac00 && code <= 0xd7a3) ||
+      (code >= 0xf900 && code <= 0xfaff) ||
+      (code >= 0xfe10 && code <= 0xfe6f) ||
+      (code >= 0xff00 && code <= 0xff60) ||
+      (code >= 0xffe0 && code <= 0xffe6)
+    ) {
+      return 2;
+    }
+    return 1;
+  }
+
+  function displayWidth(text) {
+    let width = 0;
+    for (const ch of String(text)) width += charDisplayWidth(ch);
+    return width;
+  }
+
+  /**
+   * 按显示宽度截断；中文按 2 计宽。ellipsis 占 1 列。
+   * @param {string} text
+   * @param {number} maxWidth 可用显示列数（至少 1）
+   */
+  function truncate(text, maxWidth) {
     const value = String(text);
-    return value.length > max ? value.slice(0, max - 1) + '…' : value;
+    const limit = Math.max(0, Math.floor(maxWidth));
+    if (limit <= 0) return '';
+    if (displayWidth(value) <= limit) return value;
+    const budget = Math.max(1, limit - 1);
+    let width = 0;
+    let out = '';
+    for (const ch of value) {
+      const w = charDisplayWidth(ch);
+      if (width + w > budget) break;
+      out += ch;
+      width += w;
+    }
+    return out + '…';
+  }
+
+  function fontSizeForCount(count) {
+    return count > 12 ? 9 : count > 8 ? 10 : 11;
+  }
+
+  /**
+   * 扇区在 LABEL_RADIUS 处的可用弧长决定能放多少列宽的字。
+   * arc = 2πr / count；拉丁字宽约 0.6em，并留一点相邻间距。
+   */
+  function labelMaxWidth(count) {
+    const n = Math.max(count, 1);
+    const arc = (2 * Math.PI * LABEL_RADIUS) / n;
+    const advance = fontSizeForCount(n) * 0.6;
+    return Math.max(1, Math.floor((arc * 0.85) / advance));
   }
 
   /** 把选项画成扇形，一圈铺满 360° */
@@ -52,6 +107,8 @@
 
     const count = Math.max(options.length, 1);
     const angle = 360 / count;
+    const maxWidth = labelMaxWidth(count);
+    const fontSize = fontSizeForCount(count);
 
     options.forEach((option, index) => {
       const start = index * angle;
@@ -71,10 +128,10 @@
       label.setAttribute('text-anchor', 'middle');
       label.setAttribute('dominant-baseline', 'middle');
       label.setAttribute('fill', '#fff');
-      label.setAttribute('font-size', String(count > 12 ? 9 : count > 8 ? 10 : 11));
+      label.setAttribute('font-size', String(fontSize));
       label.setAttribute('font-weight', '600');
       label.setAttribute('transform', `rotate(${mid} ${CX} ${CY})`);
-      label.textContent = truncate(option, count > 12 ? 5 : 7);
+      label.textContent = truncate(option, maxWidth);
       rotor.appendChild(label);
     });
   }
@@ -134,5 +191,18 @@
     rotor.style.transform = 'rotate(0deg)';
   }
 
-  root.CFMWheel = { render, spinTo, reset, COLORS };
+  root.CFMWheel = {
+    render,
+    spinTo,
+    reset,
+    COLORS,
+    truncate,
+    displayWidth,
+    labelMaxWidth,
+    LABEL_RADIUS,
+  };
+
+  if (typeof module === 'object' && module.exports) {
+    module.exports = root.CFMWheel;
+  }
 })(typeof globalThis !== 'undefined' ? globalThis : this);
