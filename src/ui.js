@@ -238,6 +238,19 @@
       share();
     });
     dom.optionsInput.addEventListener('input', updateEditorState);
+
+    // 键盘操作：空格 / 回车开始转，Esc 收起提示。
+    // 输入框里打字时不能被劫持，所以要判断焦点位置。
+    document.addEventListener('keydown', (event) => {
+      const tag = (event.target && event.target.tagName) || '';
+      const typing = tag === 'TEXTAREA' || tag === 'INPUT' || event.target.isContentEditable;
+      if (typing) return;
+
+      if (event.code === 'Space' || event.key === 'Enter') {
+        event.preventDefault();
+        spin();
+      }
+    });
   }
 
   /* ---------------- 启动 ---------------- */

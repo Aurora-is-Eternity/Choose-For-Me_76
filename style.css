@@ -155,6 +155,22 @@ body {
 .spin:active:not(:disabled) { transform: scale(0.96); }
 .spin:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
 
+.stage__kbd {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.stage__kbd kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--bg);
+  font-family: inherit;
+  font-size: 0.8rem;
+}
+
 /* ---------- 选项面板 ---------- */
 
 .panel {
