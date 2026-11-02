@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose-For-Me · 别纠结了，让转盘决定</title>
+  <meta name="description" content="零依赖、离线可用的决定转盘：今天吃什么、周末干什么、谁去买单，转一下就有答案。">
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1 class="app__title">别纠结了，让转盘决定</h1>
+      <p class="app__subtitle">零依赖 · 不联网 · 不收集数据　·　选择留给随机，理由留给你自己</p>
+    </header>
+
+    <nav class="scenes" id="scenes" aria-label="场景"></nav>
+
+    <section class="stage">
+      <div class="wheel" id="wheelWrap">
+        <svg id="wheel" viewBox="0 0 320 320" role="img" aria-label="选项转盘">
+          <g id="wheelRotor"></g>
+        </svg>
+        <div class="wheel__pointer" aria-hidden="true"></div>
+      </div>
+
+      <div class="result" id="result" role="status" aria-live="polite">
+        <span class="result__placeholder">点一下按钮开始</span>
+      </div>
+
+      <button class="spin" id="spinBtn" type="button">
+        <span class="spin__icon" aria-hidden="true">🎯</span>
+        <span>帮我决定</span>
+      </button>
+    </section>
+
+    <section class="panel">
+      <div class="panel__row">
+        <label class="panel__label" for="optionsInput">选项（每行一个，或用逗号 / 顿号分隔）</label>
+        <span class="panel__count" id="optionsCount">0 / 24</span>
+      </div>
+      <textarea id="optionsInput" class="panel__input" rows="6" spellcheck="false"
+                placeholder="吃食堂&#10;点外卖&#10;下馆子"></textarea>
+      <p class="panel__hint" id="optionsHint" hidden>至少要有 2 个选项才能开转。</p>
+
+      <div class="panel__actions">
+        <button class="btn" id="applyBtn" type="button">应用到转盘</button>
+        <button class="btn btn--ghost" id="resetBtn" type="button">恢复本场景默认</button>
+        <button class="btn btn--ghost" id="shareBtn" type="button">复制分享链接</button>
+      </div>
+      <p class="panel__toast" id="toast" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="history">
+      <h2 class="history__title">最近的决定</h2>
+      <ol class="history__list" id="historyList"></ol>
+      <p class="history__empty" id="historyEmpty">还没有记录。转一次试试。</p>
+    </section>
+
+    <footer class="app__footer">
+      <p>
+        <a href="https://github.com/Aurora-is-Eternity/Choose-For-Me_76" rel="noopener">GitHub 仓库</a>
+        · MIT License
+        · 想加选项？用 Issue 投稿，别人也能用上
+      </p>
+    </footer>
+  </main>
+
+  <script src="src/core.js"></script>
+  <script src="src/wheel.js"></script>
+  <script src="src/ui.js"></script>
+</body>
+</html>
