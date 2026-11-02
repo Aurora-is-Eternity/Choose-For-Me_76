@@ -1,0 +1,43 @@
+name: 选项投稿
+description: 想让转盘多一个选项？用这个模板，改起来最快。
+title: '[选项] '
+labels: ['type/option', 'good first issue']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        谢谢投稿！默认选项库是这个项目唯一「越用越值钱」的部分。
+        只要说清**放进哪个场景**和**具体怎么写**，剩下的交给维护者。
+
+  - type: dropdown
+    id: scene
+    attributes:
+      label: 放进哪个场景
+      options:
+        - 🍜 吃什么
+        - 🎯 干什么
+        - 🙋 谁来做
+        - 🌙 宵夜吃啥
+        - 新场景（在下面说明）
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: 要加的选项
+      description: 一行一个，写得具体一点（「吃火锅」比「吃点好的」更能让人做决定）。
+      placeholder: |
+        吃螺蛳粉
+        去吃烤肉
+        楼下便利店解决
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: 为什么加它
+      description: 一句话即可。比如「宿舍群里这个呼声最高」「我们学校门口就这个最常去」。
+    validations:
+      required: false
