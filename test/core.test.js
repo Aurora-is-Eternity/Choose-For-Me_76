@@ -120,6 +120,18 @@ test('空 hash 返回空数组', () => {
   assert.deepEqual(CFM.decodeHash(undefined), []);
 });
 
+test('被截断的链接不会抛错，只降级成空数组', () => {
+  // 典型现场：从聊天软件复制链接时少了一半，百分号编码被破坏
+  assert.deepEqual(CFM.decodeHash('#%E0%A4%A'), []);
+  assert.deepEqual(CFM.decodeHash('#%E5%90%83'), []);
+});
+
+test('不是数组的 JSON 同样降级成空数组', () => {
+  assert.deepEqual(CFM.decodeHash('#' + encodeURIComponent('{"a":1}')), []);
+  assert.deepEqual(CFM.decodeHash('#' + encodeURIComponent('"火锅"')), []);
+  assert.deepEqual(CFM.decodeHash('#' + encodeURIComponent('null')), []);
+});
+
 /* ---------------- 历史记录 ---------------- */
 
 test('新记录排在最前，且只保留最近 5 条', () => {
