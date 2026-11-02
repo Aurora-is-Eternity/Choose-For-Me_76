@@ -1,0 +1,33 @@
+{
+  "name": "choose-for-me",
+  "version": "1.0.0",
+  "description": "零依赖、离线的决定转盘：把「今天吃什么/干什么」交给随机，把理由留给自己",
+  "private": true,
+  "license": "MIT",
+  "author": "潘阳 <1986652356@qq.com>",
+  "homepage": "https://github.com/Aurora-is-Eternity/Choose-For-Me_76#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aurora-is-Eternity/Choose-For-Me_76.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aurora-is-Eternity/Choose-For-Me_76/issues"
+  },
+  "keywords": [
+    "wheel",
+    "decision",
+    "random",
+    "picker",
+    "vanilla-js",
+    "offline",
+    "zero-dependency"
+  ],
+  "main": "src/core.js",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\"",
+    "start": "node scripts/serve.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

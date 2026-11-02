@@ -1,0 +1,14 @@
+# 依赖（本项目零依赖，仅保留以防将来引入开发工具）
+node_modules/
+
+# 编辑器与系统文件
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 构建与日志（本项目无构建，仅保留占位）
+dist/
+*.log
+npm-debug.log*
