@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24']
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: 显示版本
+        run: node --version && npm --version
+
+      - name: 运行测试
+        run: npm test
+
+      - name: 零依赖门禁
+        run: |
+          node -e "
+            const pkg = require('./package.json');
+            const deps = Object.keys(pkg.dependencies || {});
+            if (deps.length) {
+              console.error('运行时依赖必须为空，发现: ' + deps.join(', '));
+              process.exit(1);
+            }
+            console.log('零依赖：通过');
+          "
+
+      - name: 关键文件存在性检查
+        run: |
+          for f in index.html style.css src/core.js src/wheel.js src/ui.js LICENSE README.md; do
+            test -f "$f" || { echo "缺少文件: $f"; exit 1; }
+          done
+          echo "关键文件齐全"

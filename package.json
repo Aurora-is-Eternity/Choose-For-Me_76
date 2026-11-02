@@ -1,6 +1,6 @@
-{
+﻿{
   "name": "choose-for-me",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "零依赖、离线的决定转盘：把「今天吃什么/干什么」交给随机，把理由留给自己",
   "private": true,
   "license": "MIT",

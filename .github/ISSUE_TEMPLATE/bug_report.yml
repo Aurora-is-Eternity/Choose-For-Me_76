@@ -1,0 +1,60 @@
+name: Bug 报告
+description: 转盘出故障了？按这个模板填，修起来最快。
+title: '[Bug] '
+labels: ['type/bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        先确认一下：本项目是**纯静态、零依赖、无网络请求**的页面。
+        如果是「选项没保存」「链接打开是空的」，多半和浏览器存储/链接截断有关，也请按模板填。
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 发生了什么
+      description: 描述你看到的现象，以及你期望的结果。
+      placeholder: 点击「帮我决定」后转盘停在了空白处，期望是指针指向的选项出现。
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 一步一步写，别人照着做能重现即可。
+      placeholder: |
+        1. 打开 index.html
+        2. 在选项框里粘贴 30 个选项
+        3. 点「应用到转盘」
+        4. 转盘只显示出前 24 个……
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: 浏览器与版本
+      placeholder: Chrome 138 / Safari 18 / 微信内置浏览器
+    validations:
+      required: true
+
+  - type: dropdown
+    id: entry
+    attributes:
+      label: 打开方式
+      options:
+        - 双击 index.html（file://）
+        - npm start 本地服务（http://localhost:4173）
+        - 部署在静态托管（GitHub Pages 等）
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: 控制台报错（如果有）
+      description: F12 → Console，把红色报错贴上来。
+      render: shell
+    validations:
+      required: false

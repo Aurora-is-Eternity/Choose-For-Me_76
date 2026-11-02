@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全问题（请勿公开提交）
+    url: https://github.com/Aurora-is-Eternity/Choose-For-Me_76/security/advisories/new
+    about: 涉及 XSS、注入等安全问题时，请走私密渠道，见 SECURITY.md。
+  - name: 先看看贡献指南
+    url: https://github.com/Aurora-is-Eternity/Choose-For-Me_76/blob/main/CONTRIBUTING.md
+    about: 分支模型、提交规范、新增选项的约定都写在这里。
