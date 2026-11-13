@@ -17,7 +17,7 @@
   'use strict';
 
   /** 转盘最多 24 格：再多字就挤成一团，随机也失去「可读性」 */
-  const MAX_OPTIONS = 24;
+  const MAX_OPTIONS = 32;
   /** 少于 2 个选项就不叫选择了 */
   const MIN_OPTIONS = 2;
   /** 用户粘贴选项时的分隔符：换行、中英文逗号、顿号、分号、竖线 */
