@@ -79,6 +79,10 @@ npm test         # 26 个用例，node:test，无测试框架依赖
 | 尊重 prefers-reduced-motion    | 前庭敏感用户不该被强制看动画                        | 少了一点仪式感                      |
 | 使用 SVG 而非 Canvas           | 可缩放、可访问、可读的 DOM                          | 格数极多时性能不如 Canvas           |
 |                                |                                                     |                                     |
+>>>>>>> feat/limit-32
+>>>>| 尊重 `prefers-reduced-motion` | 前庭敏感用户不该被强制看动画 | 少了一点仪式感 |
+>>>>| 使用 SVG 而非 Canvas | 可缩放、可访问、可读的 DOM | 格数极多时性能不如 Canvas |
+
 ## 项目结构
 
 ```text
