@@ -42,7 +42,7 @@ test('数组输入同样会被清洗和去重', () => {
 });
 
 
-test('超过 24 个选项时截断', () => {
+test('超过 16 个选项时截断', () => {
   const many = Array.from({ length: 40 }, (_, i) => 'option-' + i);
   assert.equal(CFM.parseOptions(many).length, CFM.MAX_OPTIONS);
 });
